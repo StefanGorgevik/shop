@@ -1,16 +1,24 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 export const Register: FC = () => {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
+
+  const handleRegister = () => {
+    setIsLoggedIn(true);
+    navigate("/");
+  };
+
   return (
     <Container style={{ marginTop: 200 }}>
       <Grid container flexDirection="column" rowGap={2} alignItems="center">
         <Typography
           variant="h4"
           textAlign="center"
-          color='primary'
+          color="primary"
           style={{ marginBottom: 10 }}
         >
           Create an account
@@ -52,7 +60,11 @@ export const Register: FC = () => {
           />
         </Grid>
         <Grid item>
-          <Button variant="contained" style={{ width: 300 }} onClick={() => navigate("/")}>
+          <Button
+            variant="contained"
+            style={{ width: 300 }}
+            onClick={handleRegister}
+          >
             Register
           </Button>
         </Grid>

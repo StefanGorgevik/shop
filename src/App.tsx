@@ -10,6 +10,7 @@ import { ProductPage } from "./pages/ProductPage/ProductPage";
 import { CartPage } from "./pages/CartPage/CartPage";
 import ScrollToTop from "./components/utils/ScrollToTop";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
+import { AuthContextProvider } from "./context/AuthContext";
 
 const theme = createTheme({
   palette: {
@@ -31,19 +32,21 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <MenuAppBar />
-          <ScrollToTop />
-          <Routes>
-            <Route path="/" element={<Shop />} />
-            <Route path="/welcome" element={<LandingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/create" element={<CreateProduct />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/product/:id" element={<ProductPage />} />
-          </Routes>
-        </BrowserRouter>
+        <AuthContextProvider>
+          <BrowserRouter>
+            <MenuAppBar />
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<Shop />} />
+              <Route path="/welcome" element={<LandingPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/create" element={<CreateProduct />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthContextProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

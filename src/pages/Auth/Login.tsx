@@ -2,15 +2,17 @@ import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../queries/auth/useLogin";
+import { useAuth } from "../../context/AuthContext";
 
 export const Login: FC = () => {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
   const login = useLogin();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    login.mutateAsync({ username, password });
+    login.mutateAsync({ username, password }).then(() => setIsLoggedIn(true));
     navigate("/");
   };
   return (
@@ -64,7 +66,6 @@ export const Login: FC = () => {
             variant="outlined"
             style={{ width: 300 }}
             onClick={() => navigate("/register")}
-            
           >
             Register
           </Button>
