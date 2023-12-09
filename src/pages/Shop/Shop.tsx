@@ -15,7 +15,7 @@ export const Shop: FC = () => {
         paddingBottom={10}
       >
         {isLoading
-          ? Array.from(Array(10).keys()).map((n) => (
+          ? Array.from(Array(3).keys()).map((n) => (
               <ProductCardPlaceholder key={n} />
             ))
           : productsData?.products?.map((product) => {

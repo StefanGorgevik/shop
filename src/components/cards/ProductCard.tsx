@@ -12,7 +12,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Product } from "../../types/products";
 import "./ProductCard.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -25,6 +25,17 @@ import { useNavigate } from "react-router-dom";
 
 export const ProductCard: FC<{ product: Product }> = ({ product }) => {
   const navigate = useNavigate();
+
+  const [showThumbnail, setShowThumbnail] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowThumbnail(true);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []); // Run the effect only once on component mount
+
   return (
     <Grid item xs={2} sm={4} md={4} key={product.id} style={{ height: "100%" }}>
       <Card variant="elevation" raised style={{ height: "100%" }}>
@@ -40,7 +51,7 @@ export const ProductCard: FC<{ product: Product }> = ({ product }) => {
           }
         />
 
-        {product?.thumbnail ? (
+        {showThumbnail ? (
           <CardMedia
             component="img"
             image={product.thumbnail}
