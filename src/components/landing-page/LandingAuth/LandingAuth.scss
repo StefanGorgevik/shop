@@ -1,0 +1,39 @@
+.auth-text {
+    margin-bottom: 50px;
+    margin-top: 76px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    font-family: "Afacad", sans-serif;
+
+    h1 {
+        color: #00203fff;
+    }
+
+    &-buttons {
+        display: flex;
+        gap: 20px;
+
+        button {
+            background-color: #00203fff;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            border-radius: 1rem;
+            font-family: "Afacad", sans-serif;
+
+            &:hover {
+                font-weight: bold;
+            }
+        }
+    }
+}

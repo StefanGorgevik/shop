@@ -6,7 +6,6 @@ import { ProductCard } from "../../components/cards/ProductCard";
 
 export const Shop: FC = () => {
   const { data: productsData, isLoading } = useGetProducts();
-  console.log("products", productsData, isLoading);
   return (
     <Container>
       <Grid

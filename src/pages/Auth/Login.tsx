@@ -51,6 +51,7 @@ export const Login: FC = () => {
             variant="contained"
             style={{ width: 300 }}
             onClick={handleLogin}
+            disabled={!username || !password}
           >
             Login
           </Button>
@@ -63,7 +64,7 @@ export const Login: FC = () => {
             variant="outlined"
             style={{ width: 300 }}
             onClick={() => navigate("/register")}
-            disabled={!username || !password}
+            
           >
             Register
           </Button>
