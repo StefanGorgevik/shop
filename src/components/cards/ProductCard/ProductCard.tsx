@@ -8,11 +8,10 @@ import {
   CardMedia,
   Chip,
   Grid,
-  Skeleton,
   Tooltip,
   Typography,
 } from "@mui/material";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Product } from "../../../types/products";
 import "./ProductCard.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -29,16 +28,6 @@ export const ProductCard: FC<{
 }> = ({ product, addToCart }) => {
   const navigate = useNavigate();
 
-  const [showThumbnail, setShowThumbnail] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowThumbnail(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <Grid item xs={2} sm={4} md={4} key={product.id} style={{ height: "100%" }}>
       <Card variant="elevation" raised style={{ height: "100%" }}>
@@ -54,21 +43,12 @@ export const ProductCard: FC<{
           }
         />
 
-        {showThumbnail ? (
-          <CardMedia
-            component="img"
-            image={product.thumbnail}
-            alt="Paella dish"
-            style={{ maxHeight: 200, objectFit: "contain" }}
-          />
-        ) : (
-          <Skeleton
-            animation="wave"
-            variant="rectangular"
-            width="100%"
-            height={200}
-          />
-        )}
+        <CardMedia
+          component="img"
+          image={product.thumbnail}
+          alt="Paella dish"
+          style={{ maxHeight: 200, objectFit: "contain" }}
+        />
         <CardContent
           style={{
             display: "flex",

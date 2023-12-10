@@ -5,11 +5,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: whitesmoke;
-  color: #40444478;
   height: 100%;
+  overflow: auto;
 }
 html {
   background: whitesmoke;
+  overflow: hidden;
   height: 100%;
 }
 
