@@ -21,10 +21,9 @@ import ReviewsIcon from "@mui/icons-material/Reviews";
 import { Product } from "../../types/products";
 import { PageLoader } from "../../components/ui/pageLoader";
 
-export const ProductPage: FC = (props) => {
+export const ProductPage: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data: productData, isLoading } = useGetProduct(id);
-  console.log("product", id, productData);
+  const { data: productData, isLoading } = useGetProduct(Number(id));
 
   if (isLoading) return <PageLoader />;
   if (!productData)

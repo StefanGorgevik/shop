@@ -2,10 +2,13 @@ import { Container, Grid } from "@mui/material";
 import { FC } from "react";
 import { useGetProducts } from "../../queries/useGetProducts";
 import { ProductCardPlaceholder } from "../../components/placeholders/ProductCardPlaceholder";
-import { ProductCard } from "../../components/cards/ProductCard";
+import { ProductCard } from "../../components/cards/ProductCard/ProductCard";
+import { useCart } from "../../context/CartContext";
 
 export const Shop: FC = () => {
   const { data: productsData, isLoading } = useGetProducts();
+  const { addToCart } = useCart();
+
   return (
     <Container>
       <Grid
@@ -18,9 +21,13 @@ export const Shop: FC = () => {
           ? Array.from(Array(3).keys()).map((n) => (
               <ProductCardPlaceholder key={n} />
             ))
-          : productsData?.products?.map((product) => {
-              return <ProductCard key={product.id} product={product} />;
-            })}
+          : productsData?.products?.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                addToCart={addToCart}
+              />
+            ))}
       </Grid>
     </Container>
   );

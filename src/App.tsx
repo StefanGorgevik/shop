@@ -11,6 +11,7 @@ import { CartPage } from "./pages/CartPage/CartPage";
 import ScrollToTop from "./components/utils/ScrollToTop";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { AuthContextProvider } from "./context/AuthContext";
+import { CartContextProvider } from "./context/CartContext";
 
 const theme = createTheme({
   palette: {
@@ -28,11 +29,11 @@ const theme = createTheme({
 
 const queryClient = new QueryClient();
 
-function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <AuthContextProvider>
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={theme}>
+      <AuthContextProvider>
+        <CartContextProvider>
           <BrowserRouter>
             <MenuAppBar />
             <ScrollToTop />
@@ -46,10 +47,10 @@ function App() {
               <Route path="/product/:id" element={<ProductPage />} />
             </Routes>
           </BrowserRouter>
-        </AuthContextProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
-  );
-}
+        </CartContextProvider>
+      </AuthContextProvider>
+    </ThemeProvider>
+  </QueryClientProvider>
+);
 
 export default App;

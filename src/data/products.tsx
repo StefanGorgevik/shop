@@ -9,10 +9,8 @@ export const getProducts = async (): Promise<ProductsData> => {
   return data;
 };
 
-export const getProduct = async (productId?: string): Promise<Product> => {
-  const res = await fetch(
-    `https://dummyjson.com/products/${Number(productId)}`
-  );
+export const getProduct = async (productId: number): Promise<Product> => {
+  const res = await fetch(`https://dummyjson.com/products/${productId}`);
   if (!res.ok) {
     throw new Error("Failed to fetch the selected product.");
   }

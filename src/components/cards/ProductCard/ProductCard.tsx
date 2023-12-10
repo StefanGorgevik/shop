@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { FC, useEffect, useState } from "react";
-import { Product } from "../../types/products";
+import { Product } from "../../../types/products";
 import "./ProductCard.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
@@ -23,7 +23,10 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import { useNavigate } from "react-router-dom";
 
-export const ProductCard: FC<{ product: Product }> = ({ product }) => {
+export const ProductCard: FC<{
+  product: Product;
+  addToCart: (product: number) => void;
+}> = ({ product, addToCart }) => {
   const navigate = useNavigate();
 
   const [showThumbnail, setShowThumbnail] = useState(false);
@@ -31,10 +34,10 @@ export const ProductCard: FC<{ product: Product }> = ({ product }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowThumbnail(true);
-    }, 1500);
+    }, 1000);
 
     return () => clearTimeout(timer);
-  }, []); // Run the effect only once on component mount
+  }, []);
 
   return (
     <Grid item xs={2} sm={4} md={4} key={product.id} style={{ height: "100%" }}>
@@ -143,7 +146,11 @@ export const ProductCard: FC<{ product: Product }> = ({ product }) => {
             </Button>
           </Tooltip>
           <Tooltip title="Add to cart">
-            <Button size="small" variant="outlined">
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => addToCart(product.id)}
+            >
               <AddShoppingCartIcon />
             </Button>
           </Tooltip>

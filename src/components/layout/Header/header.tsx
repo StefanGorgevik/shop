@@ -20,6 +20,7 @@ const MenuAppBar: FC = () => {
   const { pathname } = useLocation();
   const goBack = () => navigate(-1);
   const isHomePage = useMemo(() => pathname === "/", [pathname]);
+  const isCartPage = useMemo(() => pathname === "/cart", [pathname]);
 
   const handleLogout = () => {
     setIsLoggingOut(true);
@@ -36,7 +37,13 @@ const MenuAppBar: FC = () => {
       <Box sx={{ flexGrow: 1, marginBottom: 10 }}>
         <AppBar position="fixed">
           <Toolbar sx={{ justifyContent: "space-between" }}>
-            <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
               {isHomePage ? (
                 <Typography
                   variant="h6"
@@ -57,6 +64,16 @@ const MenuAppBar: FC = () => {
                 >
                   <WestIcon />
                 </IconButton>
+              )}
+              {isCartPage && (
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{ flexGrow: 1 }}
+                  onClick={() => navigate("/")}
+                >
+                  Your cart
+                </Typography>
               )}
             </Box>
             <Box>
