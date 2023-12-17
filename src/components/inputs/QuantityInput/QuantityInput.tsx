@@ -1,7 +1,8 @@
 import React, { FC, useRef } from "react";
 import "./QuantityInput.scss";
 import classNames from "classnames";
-
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 interface QuantityInputProps {
   value: number;
   handleIncrease: () => void;
@@ -45,7 +46,9 @@ export const QuantityInput: FC<QuantityInputProps> = ({
 
   return (
     <div className={classNames("quantityInput", className)}>
-      <button onClick={handleDecrease}>-</button>
+      <button onClick={handleDecrease}>
+        <KeyboardArrowDownIcon sx={{ paddingBottom: 0.4 }} />
+      </button>
       <input
         value={value}
         className={classNames("input", isMaxValue && "max")}
@@ -62,7 +65,7 @@ export const QuantityInput: FC<QuantityInputProps> = ({
         onClick={handleIncrease}
         className={classNames(isMaxValue && "max-plus")}
       >
-        +
+        <KeyboardArrowUpIcon sx={{ paddingBottom: 0.4 }} />
       </button>
     </div>
   );
