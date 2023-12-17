@@ -12,7 +12,12 @@ export const CartCard: FC<{
 }> = ({ id }) => {
   const { data: product } = useGetProduct(id);
   const cartQuantities = useCartQuantities();
-  const { removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
+  const {
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+    handleQuantityChange,
+  } = useCart();
   const quantity = useMemo(() => cartQuantities[id] ?? 0, [cartQuantities, id]);
 
   const handleIncrease = useCallback(() => {
@@ -52,17 +57,17 @@ export const CartCard: FC<{
       </Box>
 
       <Box className="cartCardActions">
-      <Tooltip title="Remove from cart" placement="bottom">
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={() => removeFromCart(id)}
-          color="warning"
-        >
-          <RemoveShoppingCartIcon />
-        </IconButton>
+        <Tooltip title="Remove from cart" placement="bottom">
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={() => removeFromCart(id)}
+            color="warning"
+          >
+            <RemoveShoppingCartIcon />
+          </IconButton>
         </Tooltip>
 
         <Box className="priceWrapper">
@@ -82,9 +87,12 @@ export const CartCard: FC<{
           <QuantityInput
             value={quantity}
             isMaxValue={quantity === product.stock}
+            max={product.stock}
             handleIncrease={handleIncrease}
             handleDecrease={handleDecrease}
+            handleQuantityChange={handleQuantityChange}
             className="light"
+            id={product.id}
           />
         </Box>
       </Box>

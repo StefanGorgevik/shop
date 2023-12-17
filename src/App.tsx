@@ -35,20 +35,20 @@ const App = () => (
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
         <CartContextProvider>
-            <BrowserRouter>
-              <MenuAppBar />  
-              <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/create" element={<CreateProduct />} />
-                <Route path="/cart" element={<CartPage />} />
-                <Route path="/product/:id" element={<ProductPage />} />
-                <Route path="/coding" element={<CodingInterview />} />
-              </Routes>
-            </BrowserRouter>
+          <BrowserRouter>
+            <MenuAppBar />
+            <ScrollToTop />
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/create" element={<CreateProduct />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
+              <Route path="/coding" element={<CodingInterview />} />
+            </Routes>
+          </BrowserRouter>
         </CartContextProvider>
       </AuthContextProvider>
     </ThemeProvider>

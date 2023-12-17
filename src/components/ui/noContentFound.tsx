@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
-import { FC } from "react";
+import { Box } from "@mui/material";
+import { FC, ReactNode } from "react";
 
-export const NoContentFound: FC<{ children: string }> = ({ children }) => (
+export const NoContentFound: FC<{ children: ReactNode }> = ({ children }) => (
   <Box
     sx={{
       display: "flex",
@@ -11,8 +11,6 @@ export const NoContentFound: FC<{ children: string }> = ({ children }) => (
       marginTop: 10,
     }}
   >
-    <Typography color="primary" variant="overline">
-      {children}
-    </Typography>
+    {children}
   </Box>
 );

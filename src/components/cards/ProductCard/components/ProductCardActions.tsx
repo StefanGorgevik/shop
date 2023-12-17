@@ -1,5 +1,5 @@
 import { Button, CardActions, Tooltip } from "@mui/material";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useState } from "react";
 import "../ProductCard.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -13,8 +13,15 @@ export const ProductCardActions: FC<{
   quantity: number;
   productQuantity: number;
 }> = ({ productId, quantity, productQuantity }) => {
-  const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity } =
-    useCart();
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  const {
+    addToCart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+    handleQuantityChange,
+  } = useCart();
   const navigate = useNavigate();
 
   const handleAddToCart = useCallback(() => {
@@ -52,7 +59,7 @@ export const ProductCardActions: FC<{
           <FavoriteBorderIcon />
         </Button>
       </Tooltip>
-      {quantity < 1 ? (
+      {!isInputFocused && quantity < 1 ? (
         <Tooltip title="Add to cart">
           <Button
             size="small"
@@ -66,9 +73,14 @@ export const ProductCardActions: FC<{
       ) : (
         <QuantityInput
           value={quantity}
+          max={productQuantity}
           handleIncrease={handleIncrease}
           handleDecrease={handleDecrease}
+          handleQuantityChange={handleQuantityChange}
           isMaxValue={quantity === productQuantity}
+          id={productId}
+          onFocus={() => setIsInputFocused(true)}
+          onBlur={() => setIsInputFocused(false)}
         />
       )}
     </CardActions>

@@ -10,6 +10,7 @@ export enum CartActionTypes {
   CLEAR_CART = "CLEAR_CART",
   INCREASE_QUANTITY = "INCREASE_QUANTITY",
   DECREASE_QUANTITY = "DECREASE_QUANTITY",
+  CHANGE_QUANTITY = "CHANGE_QUANTITY",
 }
 
 export type CartAction =
@@ -18,6 +19,10 @@ export type CartAction =
   | { type: CartActionTypes.REMOVE_FROM_CART; payload: number }
   | { type: CartActionTypes.INCREASE_QUANTITY; payload: number }
   | { type: CartActionTypes.DECREASE_QUANTITY; payload: number }
+  | {
+      type: CartActionTypes.CHANGE_QUANTITY;
+      payload: { key: number; quantity: number };
+    }
   | { type: CartActionTypes.CLEAR_CART };
 
 export const cartReducer = (
@@ -66,6 +71,15 @@ export const cartReducer = (
         cartQuantities: {
           ...state.cartQuantities,
           [action.payload]: state.cartQuantities[action.payload] - 1,
+        },
+      };
+
+    case CartActionTypes.CHANGE_QUANTITY:
+      return {
+        ...state,
+        cartQuantities: {
+          ...state.cartQuantities,
+          [action.payload.key]: action.payload.quantity,
         },
       };
 

@@ -21,6 +21,7 @@ interface CartContextInterface {
   emptyCart: () => void;
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
+  handleQuantityChange: (key: number, quantity: number) => void;
 }
 
 const initState = { cart: [], cartQuantities: {} };
@@ -33,6 +34,7 @@ const CartContext = createContext<CartContextInterface>({
   emptyCart: () => {},
   increaseQuantity: () => {},
   decreaseQuantity: () => {},
+  handleQuantityChange: () => {},
 });
 
 export const CartContextProvider: React.FC<{ children: ReactNode }> = ({
@@ -72,6 +74,12 @@ export const CartContextProvider: React.FC<{ children: ReactNode }> = ({
   const decreaseQuantity = (itemId: number) => {
     dispatch({ type: CartActionTypes.DECREASE_QUANTITY, payload: itemId });
   };
+  const handleQuantityChange = (itemId: number, quantity: number) => {
+    dispatch({
+      type: CartActionTypes.CHANGE_QUANTITY,
+      payload: { key: itemId, quantity },
+    });
+  };
 
   return (
     <CartContext.Provider
@@ -83,6 +91,7 @@ export const CartContextProvider: React.FC<{ children: ReactNode }> = ({
         emptyCart,
         increaseQuantity,
         decreaseQuantity,
+        handleQuantityChange,
       }}
     >
       {children}

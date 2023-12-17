@@ -1,17 +1,35 @@
-import { Button, Container, Grid } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { FC } from "react";
 import { useCart } from "../../context/CartContext";
 import { CartCard } from "../../components/cards/CartCard/CartCard";
 import { NoContentFound } from "../../components/ui/NoContentFound";
+import { useNavigate } from "react-router-dom";
 
-export const CartPage: FC = (props) => {
+export const CartPage: FC = () => {
   const {
     state: { cart },
     emptyCart,
   } = useCart();
+  const navigate = useNavigate();
 
   if (cart.length === 0) {
-    return <NoContentFound>You have no cart items.</NoContentFound>;
+    return (
+      <NoContentFound>
+        <Box sx={{ display: "flex", flexDirection: "column", marginTop: 25}}>
+          <Typography color="primary" variant="overline">
+            You have no cart items. Please add some.
+          </Typography>
+
+          <Button
+            variant="contained"
+            style={{ width: 300 }}
+            onClick={() => navigate("/shop")}
+          >
+            Browse
+          </Button>
+        </Box>
+      </NoContentFound>
+    );
   }
 
   return (
