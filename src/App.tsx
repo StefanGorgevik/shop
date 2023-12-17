@@ -13,6 +13,7 @@ import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { AuthContextProvider } from "./context/AuthContext";
 import { CartContextProvider } from "./context/CartContext";
 import { NotificationStackProvider } from "./components/ui/NotificationStack";
+import { CodingInterview } from "./pages/CodingInterview/CodingInterview";
 
 const theme = createTheme({
   palette: {
@@ -47,6 +48,7 @@ const App = () => (
                 <Route path="/create" element={<CreateProduct />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/product/:id" element={<ProductPage />} />
+                <Route path="/coding" element={<CodingInterview />} />
               </Routes>
             </BrowserRouter>
           </NotificationStackProvider>
