@@ -4,12 +4,15 @@ import { Product } from "../../../types/products";
 import "./ProductCard.css";
 import { ProductCardActions } from "./components/ProductCardActions";
 import { ProductCardContent } from "./components/ProductCardContent";
+import { useAuth } from "../../../context/AuthContext";
 
 export const ProductCard: FC<{
   product: Product;
   addToCart: (id: number) => void;
   removeFromCart: (id: number) => void;
 }> = ({ product, addToCart, removeFromCart }) => {
+  const { isLoggedIn } = useAuth();
+
   return (
     <Grid item xs={2} sm={4} md={4} key={product.id} style={{ height: "100%" }}>
       <Card variant="elevation" raised style={{ height: "100%" }}>
@@ -32,7 +35,13 @@ export const ProductCard: FC<{
           style={{ maxHeight: 200, objectFit: "contain" }}
         />
         <ProductCardContent product={product} />
-        <ProductCardActions productId={product.id} addToCart={addToCart} removeFromCart={removeFromCart} />
+        {isLoggedIn && (
+          <ProductCardActions
+            productId={product.id}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+          />
+        )}
       </Card>
     </Grid>
   );
