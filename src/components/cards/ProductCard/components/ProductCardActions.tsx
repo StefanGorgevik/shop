@@ -1,52 +1,65 @@
 import { Button, CardActions, Tooltip } from "@mui/material";
-import { FC, useState } from "react";
+import { FC, useCallback } from "react";
 import "../ProductCard.css";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
-import { QuantityInput } from "./QuantityInput";
+import { QuantityInput } from "../../../inputs/QuantityInput/QuantityInput";
+import { useCart } from "../../../../context/CartContext";
 
 export const ProductCardActions: FC<{
   productId: number;
-  addToCart: (id: number) => void;
-  removeFromCart: (id: number) => void;
-}> = ({ productId, addToCart, removeFromCart }) => {
+  quantity: number;
+  productQuantity: number;
+}> = ({ productId, quantity, productQuantity }) => {
+  const { addToCart, removeFromCart, increaseQuantity, decreaseQuantity } =
+    useCart();
   const navigate = useNavigate();
-  const [quantity, setQuantity] = useState(0);
 
-  const handleAdd = () => {
+  const handleAddToCart = useCallback(() => {
     addToCart(productId);
-    setQuantity(1);
-  };
+  }, [addToCart, productId]);
 
-  const handleDecrease = () => {
-    setQuantity((prevValue: number) => prevValue - 1);
-    removeFromCart(productId);
-  };
-  const handleIncrease = () => {
-    setQuantity((prevValue: number) => prevValue + 1);
-  };
+  const handleIncrease = useCallback(() => {
+    if (quantity === productQuantity) return;
+
+    increaseQuantity(productId);
+  }, [increaseQuantity, productId, productQuantity, quantity]);
+
+  const handleDecrease = useCallback(() => {
+    if (quantity === 1) {
+      removeFromCart(productId);
+    } else {
+      decreaseQuantity(productId);
+    }
+  }, [decreaseQuantity, productId, quantity, removeFromCart]);
 
   return (
-    <CardActions style={{ display: "flex", justifyContent: "flex-end" }}>
+    <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
       <Tooltip title="See product">
         <Button
           size="small"
           variant="outlined"
           onClick={() => navigate(`/product/${productId}`)}
+          sx={{ width: 100 }}
         >
           <VisibilityIcon />
         </Button>
       </Tooltip>
       <Tooltip title="Add to wishlist">
-        <Button size="small" variant="outlined">
+        <Button size="small" variant="outlined" sx={{ width: 100 }}>
           <FavoriteBorderIcon />
         </Button>
       </Tooltip>
       {quantity < 1 ? (
         <Tooltip title="Add to cart">
-          <Button size="small" variant="outlined" onClick={handleAdd}>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={handleAddToCart}
+            sx={{ width: 100 }}
+          >
             <AddShoppingCartIcon />
           </Button>
         </Tooltip>
@@ -55,6 +68,7 @@ export const ProductCardActions: FC<{
           value={quantity}
           handleIncrease={handleIncrease}
           handleDecrease={handleDecrease}
+          isMaxValue={quantity === productQuantity}
         />
       )}
     </CardActions>

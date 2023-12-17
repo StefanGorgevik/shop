@@ -4,6 +4,7 @@ import React, {
   useReducer,
   useEffect,
   ReactNode,
+  useState,
 } from "react";
 import {
   CartAction,
@@ -18,34 +19,42 @@ interface CartContextInterface {
   addToCart: (item: number) => void;
   removeFromCart: (id: number) => void;
   emptyCart: () => void;
+  increaseQuantity: (id: number) => void;
+  decreaseQuantity: (id: number) => void;
 }
 
+const initState = { cart: [], cartQuantities: {} };
+
 const CartContext = createContext<CartContextInterface>({
-  state: { cart: [] },
+  state: initState,
   dispatch: () => {},
   addToCart: () => {},
   removeFromCart: () => {},
   emptyCart: () => {},
+  increaseQuantity: () => {},
+  decreaseQuantity: () => {},
 });
 
 export const CartContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [state, dispatch] = useReducer(cartReducer, { cart: [] });
+  const [state, dispatch] = useReducer(cartReducer, initState);
+  const [hasSetState, setHasState] = useState(false);
 
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
-      const parsedCart = JSON.parse(storedCart);
-      if (parsedCart.length > 0) {
-        dispatch({ type: CartActionTypes.ADD_CART, payload: parsedCart });
-      }
+      const parsedCart: CartState = JSON.parse(storedCart);
+      dispatch({ type: CartActionTypes.ADD_CART, payload: parsedCart });
+      setHasState(true);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(state.cart));
-  }, [state.cart]);
+    if (hasSetState) {
+      localStorage.setItem("cart", JSON.stringify(state));
+    }
+  }, [hasSetState, state]);
 
   const addToCart = (item: number) => {
     dispatch({ type: CartActionTypes.ADD_TO_CART, payload: item });
@@ -57,10 +66,24 @@ export const CartContextProvider: React.FC<{ children: ReactNode }> = ({
   const emptyCart = () => {
     dispatch({ type: CartActionTypes.CLEAR_CART });
   };
+  const increaseQuantity = (itemId: number) => {
+    dispatch({ type: CartActionTypes.INCREASE_QUANTITY, payload: itemId });
+  };
+  const decreaseQuantity = (itemId: number) => {
+    dispatch({ type: CartActionTypes.DECREASE_QUANTITY, payload: itemId });
+  };
 
   return (
     <CartContext.Provider
-      value={{ state, dispatch, addToCart, removeFromCart, emptyCart }}
+      value={{
+        state,
+        dispatch,
+        addToCart,
+        removeFromCart,
+        emptyCart,
+        increaseQuantity,
+        decreaseQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>
@@ -68,3 +91,10 @@ export const CartContextProvider: React.FC<{ children: ReactNode }> = ({
 };
 
 export const useCart = () => useContext(CartContext);
+export const useCartQuantities = () => {
+  const {
+    state: { cartQuantities },
+  } = useCart();
+
+  return cartQuantities;
+};

@@ -2,7 +2,7 @@
     width: 90%;
     height: 125px;
     max-height: 125px;
-    background-color: #00203fff;
+    background-color: #25161b;
     padding: 1em;
     display: flex;
     align-items: center;
@@ -27,11 +27,12 @@
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        align-items: center;
+        align-items: flex-end;
 
         .priceWrapper {
             display: flex;
             align-items: center;
+            height: 50px;
         }
 
         .price {

@@ -10,7 +10,7 @@ const AuthContext = createContext<AuthContextValue>({} as AuthContextValue);
 export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>

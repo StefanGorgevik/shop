@@ -12,13 +12,12 @@ import ScrollToTop from "./components/utils/ScrollToTop";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { AuthContextProvider } from "./context/AuthContext";
 import { CartContextProvider } from "./context/CartContext";
-import { NotificationStackProvider } from "./components/ui/NotificationStack";
 import { CodingInterview } from "./pages/CodingInterview/CodingInterview";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#00203FFF",
+      main: "#25161b",
     },
     secondary: {
       main: "#ADEFD1FF",
@@ -36,9 +35,8 @@ const App = () => (
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
         <CartContextProvider>
-          <NotificationStackProvider>
             <BrowserRouter>
-              <MenuAppBar />
+              <MenuAppBar />  
               <ScrollToTop />
               <Routes>
                 <Route path="/" element={<LandingPage />} />
@@ -51,7 +49,6 @@ const App = () => (
                 <Route path="/coding" element={<CodingInterview />} />
               </Routes>
             </BrowserRouter>
-          </NotificationStackProvider>
         </CartContextProvider>
       </AuthContextProvider>
     </ThemeProvider>

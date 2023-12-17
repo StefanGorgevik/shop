@@ -8,7 +8,6 @@ export const CartPage: FC = (props) => {
   const {
     state: { cart },
     emptyCart,
-    removeFromCart,
   } = useCart();
 
   if (cart.length === 0) {
@@ -26,10 +25,7 @@ export const CartPage: FC = (props) => {
           justifyContent: "center",
         }}
       >
-        {cart &&
-          cart.map((id) => (
-            <CartCard key={id} id={id} removeFromCart={removeFromCart} />
-          ))}
+        {cart && cart.map((id) => <CartCard key={id} id={id} />)}
       </Grid>
 
       <Grid
