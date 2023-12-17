@@ -1,16 +1,11 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { useRegister } from "../../hooks/useRegister";
 
 export const Register: FC = () => {
+  const { handleChange, handleSubmit, disabled, state } = useRegister();
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuth();
-
-  const handleRegister = () => {
-    setIsLoggedIn(true);
-    navigate("/");
-  };
 
   return (
     <Container style={{ marginTop: 200 }}>
@@ -30,6 +25,8 @@ export const Register: FC = () => {
             variant="outlined"
             size="small"
             style={{ width: 300 }}
+            onChange={(e) => handleChange(e, "username")}
+            value={state.username}
           />
         </Grid>
         <Grid item>
@@ -38,6 +35,7 @@ export const Register: FC = () => {
             label="Email"
             variant="outlined"
             size="small"
+            onChange={(e) => handleChange(e, "email")}
             style={{ width: 300 }}
           />
         </Grid>
@@ -47,6 +45,7 @@ export const Register: FC = () => {
             label="Password"
             variant="outlined"
             size="small"
+            onChange={(e) => handleChange(e, "password")}
             style={{ width: 300 }}
           />
         </Grid>
@@ -56,6 +55,7 @@ export const Register: FC = () => {
             label="Repeat password"
             variant="outlined"
             size="small"
+            onChange={(e) => handleChange(e, "repeatPassword")}
             style={{ width: 300 }}
           />
         </Grid>
@@ -63,7 +63,8 @@ export const Register: FC = () => {
           <Button
             variant="contained"
             style={{ width: 300 }}
-            onClick={handleRegister}
+            onClick={handleSubmit}
+            disabled={!disabled}
           >
             Register
           </Button>

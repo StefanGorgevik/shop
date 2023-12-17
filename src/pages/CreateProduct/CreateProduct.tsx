@@ -37,7 +37,7 @@ export const CreateProduct: FC = () => {
           <Button
             variant="contained"
             style={{ width: 300 }}
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/shop")}
           >
             Create
           </Button>

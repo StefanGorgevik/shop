@@ -1,33 +1,15 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Chip,
-  Grid,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import { Card, CardHeader, CardMedia, Grid, Typography } from "@mui/material";
 import { FC } from "react";
 import { Product } from "../../../types/products";
 import "./ProductCard.css";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import InventoryIcon from "@mui/icons-material/Inventory";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import ReviewsIcon from "@mui/icons-material/Reviews";
-import { useNavigate } from "react-router-dom";
+import { ProductCardActions } from "./components/ProductCardActions";
+import { ProductCardContent } from "./components/ProductCardContent";
 
 export const ProductCard: FC<{
   product: Product;
-  addToCart: (product: number) => void;
-}> = ({ product, addToCart }) => {
-  const navigate = useNavigate();
-
+  addToCart: (id: number) => void;
+  removeFromCart: (id: number) => void;
+}> = ({ product, addToCart, removeFromCart }) => {
   return (
     <Grid item xs={2} sm={4} md={4} key={product.id} style={{ height: "100%" }}>
       <Card variant="elevation" raised style={{ height: "100%" }}>
@@ -49,92 +31,8 @@ export const ProductCard: FC<{
           alt="Paella dish"
           style={{ maxHeight: 200, objectFit: "contain" }}
         />
-        <CardContent
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 5,
-          }}
-        >
-          <Chip
-            label={
-              <Tooltip title="Price" placement="top">
-                <Box
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 5,
-                  }}
-                >
-                  <LocalOfferIcon />
-                  <Typography variant="caption">{product.price}</Typography>
-                </Box>
-              </Tooltip>
-            }
-          />
-          <Chip
-            label={
-              <Tooltip title="Remaining products" placement="top">
-                <Box
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 5,
-                  }}
-                >
-                  <InventoryIcon />
-                  <Typography variant="caption">{product.stock}</Typography>
-                </Box>
-              </Tooltip>
-            }
-          />
-          <Chip
-            label={
-              <Tooltip title="Rating" placement="top">
-                <Box
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 5,
-                  }}
-                >
-                  <ReviewsIcon />
-                  <Typography variant="caption">{product.rating}</Typography>
-                </Box>
-              </Tooltip>
-            }
-          />
-        </CardContent>
-        <CardActions style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Tooltip title="See product">
-            <Button
-              size="small"
-              variant="outlined"
-              onClick={() => navigate(`/product/${product.id}`)}
-            >
-              <VisibilityIcon />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Add to wishlist">
-            <Button size="small" variant="outlined">
-              <FavoriteBorderIcon />
-            </Button>
-          </Tooltip>
-          <Tooltip title="Add to cart">
-            <Button
-              size="small"
-              variant="outlined"
-              onClick={() => addToCart(product.id)}
-            >
-              <AddShoppingCartIcon />
-            </Button>
-          </Tooltip>
-        </CardActions>
+        <ProductCardContent product={product} />
+        <ProductCardActions productId={product.id} addToCart={addToCart} removeFromCart={removeFromCart} />
       </Card>
     </Grid>
   );

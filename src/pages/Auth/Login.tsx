@@ -13,7 +13,7 @@ export const Login: FC = () => {
 
   const handleLogin = () => {
     login.mutateAsync({ username, password }).then(() => setIsLoggedIn(true));
-    navigate("/");
+    navigate("/shop");
   };
   return (
     <Container style={{ marginTop: 200 }}>

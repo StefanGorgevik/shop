@@ -3,7 +3,7 @@ import { Shop } from "./pages/Shop/Shop";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Auth/Login";
-import MenuAppBar from "./components/layout/Header/header";
+import MenuAppBar from "./components/layout/Header/Header";
 import { Register } from "./pages/Auth/Register";
 import { CreateProduct } from "./pages/CreateProduct/CreateProduct";
 import { ProductPage } from "./pages/ProductPage/ProductPage";
@@ -12,6 +12,7 @@ import ScrollToTop from "./components/utils/ScrollToTop";
 import { LandingPage } from "./pages/LandingPage/LandingPage";
 import { AuthContextProvider } from "./context/AuthContext";
 import { CartContextProvider } from "./context/CartContext";
+import { NotificationStackProvider } from "./components/ui/NotificationStack";
 
 const theme = createTheme({
   palette: {
@@ -34,19 +35,21 @@ const App = () => (
     <ThemeProvider theme={theme}>
       <AuthContextProvider>
         <CartContextProvider>
-          <BrowserRouter>
-            <MenuAppBar />
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<Shop />} />
-              <Route path="/welcome" element={<LandingPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/create" element={<CreateProduct />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/product/:id" element={<ProductPage />} />
-            </Routes>
-          </BrowserRouter>
+          <NotificationStackProvider>
+            <BrowserRouter>
+              <MenuAppBar />
+              <ScrollToTop />
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/create" element={<CreateProduct />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/product/:id" element={<ProductPage />} />
+              </Routes>
+            </BrowserRouter>
+          </NotificationStackProvider>
         </CartContextProvider>
       </AuthContextProvider>
     </ThemeProvider>

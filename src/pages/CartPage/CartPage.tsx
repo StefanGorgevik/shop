@@ -2,7 +2,7 @@ import { Button, Container, Grid } from "@mui/material";
 import { FC } from "react";
 import { useCart } from "../../context/CartContext";
 import { CartCard } from "../../components/cards/CartCard/CartCard";
-import { NoContentFound } from "../../components/ui/noContentFound";
+import { NoContentFound } from "../../components/ui/NoContentFound";
 
 export const CartPage: FC = (props) => {
   const {
@@ -17,7 +17,15 @@ export const CartPage: FC = (props) => {
 
   return (
     <Container>
-      <Grid container sx={{ gap: 2, height: 500, overflowY: "auto" }}>
+      <Grid
+        container
+        sx={{
+          gap: 2,
+          height: 500,
+          overflowY: "auto",
+          justifyContent: "center",
+        }}
+      >
         {cart &&
           cart.map((id) => (
             <CartCard key={id} id={id} removeFromCart={removeFromCart} />

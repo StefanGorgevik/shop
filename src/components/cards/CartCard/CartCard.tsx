@@ -14,7 +14,7 @@ export const CartCard: FC<{
   if (!product) return null;
   return (
     <Box className="cartCard">
-      <Box className='cartCardWrapper'>
+      <Box className="cartCardWrapper">
         <img
           src={product.thumbnail}
           alt="thumbnail"
@@ -44,6 +44,19 @@ export const CartCard: FC<{
         >
           <RemoveShoppingCartIcon />
         </IconButton>
+
+        <Box className="priceWrapper">
+          <Typography
+            className="priceTypography"
+            variant="overline"
+            color="secondary"
+          >
+            Price:
+          </Typography>
+          <Typography className="price" variant="overline" color="secondary">
+            {product.price}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );

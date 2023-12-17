@@ -15,7 +15,7 @@ const LogoutModal: FC<LogoutModalProps> = ({ isLoggingOut, onClose }) => {
   const handleLogoutRequest = () => {
     setIsLoggedIn(false);
     onClose();
-    navigate("/welcome");
+    navigate("/");
   };
 
   return (
@@ -31,8 +31,10 @@ const LogoutModal: FC<LogoutModalProps> = ({ isLoggingOut, onClose }) => {
         </DialogTitle>
 
         <DialogActions>
-          <Button variant="outlined" onClick={onClose}>No</Button>
-          <Button variant='contained' onClick={handleLogoutRequest} autoFocus>
+          <Button variant="outlined" onClick={onClose}>
+            No
+          </Button>
+          <Button variant="contained" onClick={handleLogoutRequest} autoFocus>
             Yes
           </Button>
         </DialogActions>

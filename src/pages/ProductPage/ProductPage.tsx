@@ -19,7 +19,7 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import { Product } from "../../types/products";
-import { PageLoader } from "../../components/ui/pageLoader";
+import { PageLoader } from "../../components/ui/PageLoader";
 
 export const ProductPage: FC = () => {
   const { id } = useParams<{ id: string }>();

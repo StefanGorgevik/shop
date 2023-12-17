@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -19,17 +19,13 @@ const MenuAppBar: FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const goBack = () => navigate(-1);
-  const isHomePage = useMemo(() => pathname === "/", [pathname]);
+  const isHomePage = useMemo(() => pathname === "/shop", [pathname]);
   const isCartPage = useMemo(() => pathname === "/cart", [pathname]);
 
   const handleLogout = () => {
     setIsLoggingOut(true);
   };
-  if (
-    pathname === "/login" ||
-    pathname === "/register" ||
-    pathname === "/welcome"
-  )
+  if (pathname === "/login" || pathname === "/register" || pathname === "/")
     return null;
 
   return (
@@ -49,7 +45,7 @@ const MenuAppBar: FC = () => {
                   variant="h6"
                   component="div"
                   sx={{ flexGrow: 1 }}
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/shop")}
                 >
                   Shop
                 </Typography>
@@ -70,7 +66,7 @@ const MenuAppBar: FC = () => {
                   variant="h5"
                   component="div"
                   sx={{ flexGrow: 1 }}
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/shop")}
                 >
                   Your cart
                 </Typography>
@@ -79,36 +75,43 @@ const MenuAppBar: FC = () => {
             <Box>
               {isLoggedIn ? (
                 <>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={() => navigate("/create")}
-                    color="inherit"
-                  >
-                    <AddCircleOutlineIcon />
-                  </IconButton>
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={() => navigate("/cart")}
-                    color="inherit"
-                  >
-                    <AddShoppingCartIcon />
-                  </IconButton>
-                  <IconButton
-                    size="large"
-                    aria-label="logout"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleLogout}
-                    color="inherit"
-                  >
-                    <LogoutOutlined />
-                  </IconButton>
+                  <Tooltip title="Create a new product" placement="bottom">
+                    <IconButton
+                      size="large"
+                      aria-label="account of current user"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      onClick={() => navigate("/create")}
+                      color="inherit"
+                    >
+                      <AddCircleOutlineIcon />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip title="Cart" placement="bottom">
+                    <IconButton
+                      size="large"
+                      aria-label="account of current user"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      onClick={() => navigate("/cart")}
+                      color="inherit"
+                    >
+                      <AddShoppingCartIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Logout" placement="bottom">
+                    <IconButton
+                      size="large"
+                      aria-label="logout"
+                      aria-controls="menu-appbar"
+                      aria-haspopup="true"
+                      onClick={handleLogout}
+                      color="inherit"
+                    >
+                      <LogoutOutlined />
+                    </IconButton>
+                  </Tooltip>
                 </>
               ) : (
                 <Box style={{ display: "flex", gap: 10 }}>
